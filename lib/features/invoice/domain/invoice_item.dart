@@ -3,7 +3,10 @@ class InvoiceItem {
   final double quantity;
   final double unitPrice;
 
-  InvoiceItem({required this.description, required this.quantity, required this.unitPrice});
+  InvoiceItem(
+      {required this.description,
+      required this.quantity,
+      required this.unitPrice});
 
   double get total => quantity * unitPrice;
 }

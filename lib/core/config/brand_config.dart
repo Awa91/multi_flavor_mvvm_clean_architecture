@@ -17,7 +17,6 @@ class BrandConfig {
     required this.themeData,
     required this.logoPath,
     required this.fontName,
-
   });
 
   factory BrandConfig.current() {
@@ -28,7 +27,6 @@ class BrandConfig {
           themeData: BetaTheme.dark,
           logoPath: 'assets/current_brand/logo.png',
           fontName: 'Montserrat',
-
         );
       case 'alpha':
       default:

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'core/config/brand_config.dart';
@@ -13,7 +12,6 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final brand = BrandConfig.current();
     final fontVM = locator<FontViewModel>();
-
 
     return ListenableBuilder(
       listenable: fontVM,

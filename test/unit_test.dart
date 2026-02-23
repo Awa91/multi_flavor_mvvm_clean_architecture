@@ -5,8 +5,6 @@ import 'package:multi_flavor_mvvm_clean_architecture/features/invoice/domain/inv
 import 'package:multi_flavor_mvvm_clean_architecture/features/invoice/domain/invoice_item.dart';
 import 'package:multi_flavor_mvvm_clean_architecture/features/invoice/presentation/view_models/invoice_view_model.dart';
 
-
-
 // Manual Mock or use Mockito/Mocktail
 class MockInvoiceRepository extends Mock implements InvoiceRepository {
   @override
@@ -16,7 +14,9 @@ class MockInvoiceRepository extends Mock implements InvoiceRepository {
         id: "TEST-001",
         clientName: "Test Client",
         date: DateTime.now(),
-        items: [InvoiceItem(description: "Item 1", quantity: 1, unitPrice: 100)],
+        items: [
+          InvoiceItem(description: "Item 1", quantity: 1, unitPrice: 100)
+        ],
       ),
     ];
   }
@@ -24,7 +24,6 @@ class MockInvoiceRepository extends Mock implements InvoiceRepository {
 
 void main() {
   group('Unit Tests: Domain & ViewModel', () {
-
     test('Invoice total calculation should be correct', () {
       final item1 = InvoiceItem(description: "A", quantity: 2, unitPrice: 50);
       final item2 = InvoiceItem(description: "B", quantity: 1, unitPrice: 200);

@@ -14,11 +14,8 @@ import 'package:multi_flavor_mvvm_clean_architecture/core/di/dependence_injectio
 
 import 'unit_test.dart';
 
-
-
 void main() {
   group('Widget Tests: UI & Branding', () {
-
     setUp(() {
       final locator = GetIt.instance;
       locator.reset();
@@ -26,7 +23,8 @@ void main() {
       setupLocator(mockRepo: MockInvoiceRepository());
     });
 
-    testWidgets('App displays correct brand title and icon', (WidgetTester tester) async {
+    testWidgets('App displays correct brand title and icon',
+        (WidgetTester tester) async {
       await tester.pumpWidget(const MainApp());
       await tester.pumpAndSettle();
 
@@ -39,7 +37,8 @@ void main() {
       expect(find.byKey(const Key('brand-icon')), findsOneWidget);
     });
 
-    testWidgets('Navigation to details works upon tapping card', (WidgetTester tester) async {
+    testWidgets('Navigation to details works upon tapping card',
+        (WidgetTester tester) async {
       await tester.pumpWidget(const MainApp());
       await tester.pumpAndSettle();
 
@@ -52,7 +51,8 @@ void main() {
       expect(find.text("Client: Test Client"), findsOneWidget);
     });
 
-    testWidgets('Shows empty state when no invoices are returned', (WidgetTester tester) async {
+    testWidgets('Shows empty state when no invoices are returned',
+        (WidgetTester tester) async {
       final locator = GetIt.instance;
       locator.reset();
 
@@ -70,10 +70,6 @@ void main() {
     });
   });
 }
-
-
-
-
 
 // import 'package:flutter/material.dart';
 // import 'package:flutter_test/flutter_test.dart';

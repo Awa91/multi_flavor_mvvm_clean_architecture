@@ -1,7 +1,5 @@
 //Asset Swapping Script
 
-
-
 import 'dart:io';
 
 /// This script moves brand-specific assets into the active folder.
@@ -15,7 +13,8 @@ void main(List<String> arguments) async {
 
   final String brand = arguments[0].toLowerCase();
   if (brand != 'alpha' && brand != 'beta') {
-    print('❌ Error: "$brand" is not a recognized brand. Use "alpha" or "beta".');
+    print(
+        '❌ Error: "$brand" is not a recognized brand. Use "alpha" or "beta".');
     exit(1);
   }
 
@@ -35,7 +34,8 @@ void main(List<String> arguments) async {
     await for (var entity in sourceDir.list(recursive: true)) {
       if (entity is File) {
         // Construct the new path relative to the target directory
-        final String relativePath = entity.path.replaceFirst(sourceDir.path, '');
+        final String relativePath =
+            entity.path.replaceFirst(sourceDir.path, '');
         final String newPath = '${targetDir.path}$relativePath';
 
         // Ensure subdirectories exist within the target
@@ -51,14 +51,3 @@ void main(List<String> arguments) async {
     exit(1);
   }
 }
-
-
-
-
-
-
-
-
-
-
-

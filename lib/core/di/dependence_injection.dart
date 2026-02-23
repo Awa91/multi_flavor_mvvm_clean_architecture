@@ -5,17 +5,12 @@ import '../../features/font/font_view_model.dart';
 import '../../features/invoice/data/repositories/invoice_repository.dart';
 import '../../features/invoice/presentation/view_models/invoice_view_model.dart';
 
-
-
 final locator = GetIt.instance;
 
 // void setupLocator() {
 //   locator.registerLazySingleton(() => ConnectivityRepository());
 //   locator.registerFactory(() => FontViewModel(locator<ConnectivityRepository>()));
 // }
-
-
-
 
 /// Sets up the service locator for dependency injection.
 ///
@@ -34,7 +29,8 @@ void setupLocator({InvoiceRepository? mockRepo}) {
   // --- Presentation Layer (ViewModels) ---
 
   // FontViewModel is a LazySingleton because it manages global app state (WiFi/Fonts)
-  locator.registerLazySingleton(() => FontViewModel(locator<ConnectivityRepository>()));
+  locator.registerLazySingleton(
+      () => FontViewModel(locator<ConnectivityRepository>()));
 
   // InvoiceViewModel is registered as a Factory because we usually want a
   // fresh instance when entering the Invoice screen or to allow manual disposal.

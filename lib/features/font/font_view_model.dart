@@ -3,8 +3,6 @@ import 'package:google_fonts/google_fonts.dart';
 
 import 'connective_repository.dart';
 
-
-
 class FontViewModel extends ChangeNotifier {
   final ConnectivityRepository _repository;
   bool _isWifi = false;

@@ -1,16 +1,34 @@
 import 'invoice_item.dart';
 
+import 'invoice_item.dart';
+
 class Invoice {
   final String id;
   final String clientName;
   final DateTime date;
   final List<InvoiceItem> items;
 
-  Invoice(
-      {required this.id,
-      required this.clientName,
-      required this.date,
-      required this.items});
+  Invoice({
+    required this.id,
+    required this.clientName,
+    required this.date,
+    required this.items,
+  });
 
   double get totalAmount => items.fold(0, (sum, item) => sum + item.total);
 }
+
+// class Invoice {
+//   final String id;
+//   final String clientName;
+//   final DateTime date;
+//   final List<InvoiceItem> items;
+//
+//   Invoice(
+//       {required this.id,
+//       required this.clientName,
+//       required this.date,
+//       required this.items});
+//
+//   double get totalAmount => items.fold(0, (sum, item) => sum + item.total);
+// }

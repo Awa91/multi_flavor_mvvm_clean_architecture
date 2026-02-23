@@ -16,23 +16,48 @@ final locator = GetIt.instance;
 ///
 /// [mockRepo] can be passed during unit or widget testing to override
 /// the default production repository.
+
+//final locator = GetIt.instance;
+
 void setupLocator({InvoiceRepository? mockRepo}) {
-  // Clear existing registrations if any (useful for testing resets)
+  // Clear existing registrations if any
   locator.reset();
 
   // --- Data Layer ---
   locator.registerLazySingleton(() => ConnectivityRepository());
 
-  // Register the mock if provided, otherwise register the production repository
+  // Register mock if provided, otherwise production repo
   locator.registerLazySingleton(() => mockRepo ?? InvoiceRepository());
 
   // --- Presentation Layer (ViewModels) ---
-
-  // FontViewModel is a LazySingleton because it manages global app state (WiFi/Fonts)
   locator.registerLazySingleton(
-      () => FontViewModel(locator<ConnectivityRepository>()));
+        () => FontViewModel(locator<ConnectivityRepository>()),
+  );
 
-  // InvoiceViewModel is registered as a Factory because we usually want a
-  // fresh instance when entering the Invoice screen or to allow manual disposal.
-  locator.registerFactory(() => InvoiceViewModel(locator<InvoiceRepository>()));
+  locator.registerFactory(
+        () => InvoiceViewModel(locator<InvoiceRepository>()),
+  );
 }
+
+
+
+// void setupLocator({InvoiceRepository? mockRepo}) {
+//   // Clear existing registrations if any (useful for testing resets)
+//   locator.reset();
+//
+//   // --- Data Layer ---
+//   locator.registerLazySingleton(() => ConnectivityRepository());
+//
+//   // Register the mock if provided, otherwise register the production repository
+//   locator.registerLazySingleton(() => mockRepo ?? InvoiceRepository());
+//
+//   // --- Presentation Layer (ViewModels) ---
+//
+//   // FontViewModel is a LazySingleton because it manages global app state (WiFi/Fonts)
+//   locator.registerLazySingleton(
+//       () => FontViewModel(locator<ConnectivityRepository>()));
+//
+//   // InvoiceViewModel is registered as a Factory because we usually want a
+//   // fresh instance when entering the Invoice screen or to allow manual disposal.
+//   locator.registerFactory(() => InvoiceViewModel(locator<InvoiceRepository>()));
+// }

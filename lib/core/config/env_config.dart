@@ -1,6 +1,5 @@
 //1 Environment Configuration
 
-import 'package:flutter/foundation.dart';
 
 /// Handles compile-time variables passed via --dart-define.
 /// Constants are used to allow the compiler to perform tree-shaking

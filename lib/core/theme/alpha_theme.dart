@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../config/env_config.dart';
 
 class AlphaTheme {
   static ThemeData get light => ThemeData(

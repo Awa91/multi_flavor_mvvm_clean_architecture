@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 class AlphaTheme {
   static ThemeData get light => ThemeData(
         useMaterial3: true,

@@ -34,7 +34,8 @@ void main(List<String> arguments) async {
     await for (final entity in sourceDir.list(recursive: true)) {
       if (entity is File) {
         // Construct the new path relative to the target directory
-        final String relativePath = entity.path.replaceFirst(sourceDir.path, '');
+        final String relativePath =
+            entity.path.replaceFirst(sourceDir.path, '');
         final String newPath = '${targetDir.path}$relativePath';
 
         final File newFile = File(newPath);
@@ -51,7 +52,6 @@ void main(List<String> arguments) async {
     exit(1);
   }
 }
-
 
 // void main(List<String> arguments) async {
 //   if (arguments.isEmpty) {

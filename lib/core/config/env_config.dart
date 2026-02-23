@@ -29,8 +29,6 @@ class EnvConfig {
   static bool get isBeta => brand == 'beta';
 }
 
-
-
 // class EnvConfig {
 //   static const String env = String.fromEnvironment(
 //     'ENV',

@@ -31,15 +31,13 @@ void setupLocator({InvoiceRepository? mockRepo}) {
 
   // --- Presentation Layer (ViewModels) ---
   locator.registerLazySingleton(
-        () => FontViewModel(locator<ConnectivityRepository>()),
+    () => FontViewModel(locator<ConnectivityRepository>()),
   );
 
   locator.registerFactory(
-        () => InvoiceViewModel(locator<InvoiceRepository>()),
+    () => InvoiceViewModel(locator<InvoiceRepository>()),
   );
 }
-
-
 
 // void setupLocator({InvoiceRepository? mockRepo}) {
 //   // Clear existing registrations if any (useful for testing resets)

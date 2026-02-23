@@ -40,7 +40,6 @@ class BrandConfig {
   }
 }
 
-
 // class BrandConfig {
 //   final String appTitle;
 //   final ThemeData themeData;

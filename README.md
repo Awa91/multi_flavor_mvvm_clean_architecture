@@ -1,17 +1,20 @@
 # multi_flavor_mvvm_clean_architecture
 
-A new Flutter project.
 
-## Getting Started
+# Flutter CI Demo Project
 
-This project is a starting point for a Flutter application.
+![Flutter CI](https://github.com/Awa91/multi_flavor_mvvm_clean_architecture/actions/workflows/flutter_ci_cd.yml/badge.svg)
 
-A few resources to get you started if this is your first Flutter project:
+This project demonstrates a full Continuous Integration workflow using GitHub Actions for a Flutter application.
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+## CI Features
+* **Static Analysis:** Checks for linting issues using `flutter analyze`.
+* **Testing:** Runs all unit and widget tests automatically.
+* **Build Verification:** Compiles a release APK to ensure no build-time errors.
+* **Artifacts:** Provides a downloadable APK for every successful run.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## How to use
+1. Clone the repo.
+2. Run `flutter pub get`.
+3. Check the **Actions** tab to see the workflow in progress!
+3. How to get the URL from GitHub (The easy way)

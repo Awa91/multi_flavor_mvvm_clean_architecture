@@ -1,0 +1,93 @@
+
+name: Flutter Multi-Brand CI/CD
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    name: Quality Assurance (Tests & Analysis)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.x'
+          channel: 'stable'
+          cache: true
+
+      - name: Install Dependencies
+        run: flutter pub get
+
+      - name: Verify Formatting
+        run: flutter format --set-exit-if-changed .
+
+      - name: Analyze Code
+        run: flutter analyze
+
+      # 1. Run Unit Tests (Logic, ViewModels, Entities)
+      - name: Run Unit Tests
+        run: flutter test test/unit --coverage
+
+      # 2. Run Widget Tests (UI, Navigation, Branding)
+      - name: Run Widget Tests
+        run: flutter test test/widget --coverage
+
+#      # 3. Upload Coverage Report (Optional but recommended)
+#      - name: Upload Coverage to Codecov
+#        uses: codecov/codecov-action@v3
+#        with:
+#          file: coverage/lcov.info
+
+
+  build_android:
+    name: Build Android (Multi-Brand)
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.x'
+          cache: true
+
+      - name: Install Dependencies
+        run: flutter pub get
+
+      # Build Alpha Brand (Dev Environment)
+      - name: Build Alpha Dev APK
+        run:  flutter build apk --debug  --flavor alpha   --dart-define=ENV=dev   --dart-define=BRAND=alpha     --dart-define=API_KEY=https://alpha-dev-api.example.com
+
+      # Build Beta Brand (Prod Environment)
+      - name: Build Beta Prod APK
+        run:  flutter build apk --release  --flavor beta  --dart-define=ENV=prod   --dart-define=BRAND=beta  --dart-define=API_KEY=https://beta-api.example.com
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: brand-apks
+          path: build/app/outputs/flutter-apk/*.apk
+
+  # Optional: Integration Test Job
+  # Note: Requires a running emulator or physical device.
+  # Usually handled via Firebase Test Lab or a macOS runner for iOS.
+  integration_test:
+    name: Integration Testing
+    needs: test
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+
+      - name: Run Integration Tests
+        run: flutter test integration_test/app_test.dart
+
+
+

@@ -10,6 +10,54 @@ android {
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
+
+    // 1. Define Flavor Dimensions
+    // Dimensions are prioritized from left to right for resource merging
+    flavorDimensions.add("brand")
+    flavorDimensions.add("environment")
+
+    productFlavors {
+        // --- BRAND DIMENSION ---
+        // Assets in src/alpha/res will override src/main/res
+        create("alpha") {
+            dimension = "brand"
+            applicationIdSuffix = ".alpha"
+            manifestPlaceholders["appName"] = "Alpha Brand"
+        }
+        create("beta") {
+            dimension = "brand"
+            applicationIdSuffix = ".beta"
+            manifestPlaceholders["appName"] = "Beta Brand"
+        }
+
+        // --- ENVIRONMENT DIMENSION ---
+        create("dev") {
+            dimension = "environment"
+            applicationIdSuffix = ".dev"
+        }
+        create("qa") {
+            dimension = "environment"
+            applicationIdSuffix = ".qa"
+        }
+        create("prod") {
+            dimension = "environment"
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17

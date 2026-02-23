@@ -21,6 +21,7 @@ dependencies:
   google_fonts: ^8.0.2
   connectivity_plus: ^7.0.0
   get_it: ^9.2.1
+  format: ^1.6.0
 
 dev_dependencies:
   integration_test:

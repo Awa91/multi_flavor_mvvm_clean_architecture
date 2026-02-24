@@ -11,19 +11,44 @@ final locator = GetIt.instance;
 /// [mockRepo] can be passed during unit or widget testing to override
 /// the default production repository.
 void setupLocator({InvoiceRepository? mockRepo}) {
-  // Clear existing registrations if any
-  locator.reset();
+  // Use allowReassignment or reset to ensure a clean slate
+  if (locator.isRegistered<ConnectivityRepository>()) {
+    locator.reset();
+  }
 
   // --- Data Layer ---
-  locator.registerLazySingleton(() => ConnectivityRepository());
+  locator.registerLazySingleton<ConnectivityRepository>(
+    () => ConnectivityRepository(),
+  );
 
-  // Register mock if provided, otherwise production repo
-  locator.registerLazySingleton(() => mockRepo ?? InvoiceRepository());
+  // Use the mock if provided
+  locator.registerLazySingleton<InvoiceRepository>(
+    () => mockRepo ?? InvoiceRepository(),
+  );
 
-  // --- Presentation Layer (ViewModels) ---
+  // --- Presentation Layer ---
   locator.registerLazySingleton(
     () => FontViewModel(locator<ConnectivityRepository>()),
   );
 
   locator.registerFactory(() => InvoiceViewModel(locator<InvoiceRepository>()));
 }
+
+// void setupLocator({InvoiceRepository? mockRepo}) {
+//   // Clear existing registrations if any
+//   locator.reset();
+//
+//   // --- Data Layer ---
+//   locator.registerLazySingleton(() => ConnectivityRepository());
+//
+//   // Register mock if provided, otherwise production repo
+//   locator.registerLazySingleton(() => mockRepo ?? InvoiceRepository());
+//
+//   // --- Presentation Layer (ViewModels) ---
+//   locator.registerLazySingleton(
+//     () => FontViewModel(locator<ConnectivityRepository>()),
+//   );
+//
+//   locator.registerFactory(() =>
+//   InvoiceViewModel(locator<InvoiceRepository>()));
+// }

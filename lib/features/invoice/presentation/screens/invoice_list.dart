@@ -56,7 +56,15 @@ class _InvoiceListScreenState extends State<InvoiceListScreen> {
           if (_viewModel.isLoading) {
             return const Center(child: CircularProgressIndicator());
           }
-
+          // Handle Empty State
+          if (_viewModel.invoices.isEmpty) {
+            return const Center(
+              child: Text(
+                "No Invoices Found",
+                style: TextStyle(fontSize: 16, color: Colors.grey),
+              ),
+            );
+          }
           return ListView.builder(
             itemCount: _viewModel.invoices.length,
             padding: const EdgeInsets.all(16),

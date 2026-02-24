@@ -88,7 +88,7 @@ jobs:
 
       # STRATEGY A: Running for Web (Headless Chrome)
       - name: Run Integration Tests (Chrome)
-        run: flutter test integration_test/app_test.dart  -d chrome --web-renderer canvaskit
+        run: flutter test integration_test/app_test.dart  -d chrome
 
         #STRATEGY B: Running for macOS Desktop
         # Note: Desktop tests on CI often require the app to be built first

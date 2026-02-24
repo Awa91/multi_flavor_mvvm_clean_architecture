@@ -1,5 +1,3 @@
-//Asset Swapping Script
-
 import 'dart:io';
 
 /// This script moves brand-specific assets into the active folder.

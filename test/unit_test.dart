@@ -14,7 +14,7 @@ class MockInvoiceRepository extends Mock implements InvoiceRepository {
         clientName: "Test Client",
         date: DateTime.now(),
         items: [
-          InvoiceItem(description: "Item 1", quantity: 1, unitPrice: 100)
+          InvoiceItem(description: "Item 1", quantity: 1, unitPrice: 100),
         ],
       ),
     ];

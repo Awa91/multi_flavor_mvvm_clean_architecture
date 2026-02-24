@@ -1,0 +1,19 @@
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/branding/alpha/icon.png"
+  # This target ensures the icons go to the Alpha flavor folder
+  # instead of the default 'main' folder.
+  android_icon_path: "android/app/src/alpha/res"
+  adaptive_icon_background: "#FFFFFF"
+  adaptive_icon_foreground: "assets/branding/alpha/icon_foreground.png"
+  web:
+    generate: true
+    image_path: "assets/branding/alpha/logo.png"
+
+
+
+
+
+

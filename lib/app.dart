@@ -50,7 +50,7 @@ class HomeScreen extends StatelessWidget {
             Image.asset(
               brand.logoPath,
               width: 150,
-              errorBuilder: (_, __, ___) => const Icon(Icons.image, size: 100),
+              errorBuilder: (_, _, _) => const Icon(Icons.image, size: 100),
             ),
             const SizedBox(height: 20),
             Text(

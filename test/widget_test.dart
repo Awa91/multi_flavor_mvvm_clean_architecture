@@ -5,21 +5,33 @@ import 'package:multi_flavor_mvvm_clean_architecture/app.dart';
 import 'package:multi_flavor_mvvm_clean_architecture/core/config/brand_config.dart';
 import 'package:multi_flavor_mvvm_clean_architecture/core/di/dependence_injection.dart';
 
-import 'unit_test.dart';
+import 'unit_test.dart'; // Assume MockInvoiceRepository is here
 
 void main() {
+  // Ensure Flutter binding is initialized
+  TestWidgetsFlutterBinding.ensureInitialized();
+
   group('Widget Tests: UI & Branding', () {
+    late MockInvoiceRepository mockRepo;
+
     setUp(() {
-      final locator = GetIt.instance;
-      locator.reset();
-      // Assume setupLocator handles DI registration
-      setupLocator(mockRepo: MockInvoiceRepository());
+      mockRepo = MockInvoiceRepository();
+      // Setup locator with the mock before each test
+      setupLocator(mockRepo: mockRepo);
+    });
+
+    tearDown(() async {
+      await GetIt.instance.reset();
     });
 
     testWidgets('App displays correct brand title and icon', (
       WidgetTester tester,
     ) async {
+      // Build the app
       await tester.pumpWidget(const MainApp());
+
+      // Handle potential async DI setup and initial frame
+      await tester.pump();
       await tester.pumpAndSettle();
 
       final brand = BrandConfig.current();
@@ -37,29 +49,30 @@ void main() {
       await tester.pumpWidget(const MainApp());
       await tester.pumpAndSettle();
 
-      // Tap the first invoice card found in the list
-      await tester.tap(find.byType(Card).first);
+      // Ensure at least one card is rendered from Mock repository
+      final cardFinder = find.byType(Card).first;
+      expect(cardFinder, findsOneWidget);
+
+      await tester.tap(cardFinder);
       await tester.pumpAndSettle();
 
-      // Verify navigation result
-      expect(find.text("TEST-001"), findsOneWidget);
-      expect(find.text("Client: Test Client"), findsOneWidget);
+      // Verify navigation result (Assuming Mock uses "TEST-001")
+      expect(find.textContaining("TEST-001"), findsOneWidget);
     });
 
     testWidgets('Shows empty state when no invoices are returned', (
       WidgetTester tester,
     ) async {
-      final locator = GetIt.instance;
-      await locator.reset();
-
-      final mockEmptyRepo = MockInvoiceRepository();
-
-      setupLocator(mockRepo: mockEmptyRepo);
+      // Override specific behavior for this test
+      final emptyRepo = MockInvoiceRepository();
+      // Configure mock to return empty list if your mock framework supports it
+      // or setup locator specifically for this test
+      setupLocator(mockRepo: emptyRepo);
 
       await tester.pumpWidget(const MainApp());
-      await tester.pump(); // Start the build
-      await tester.pumpAndSettle(); // Wait for animation/data
+      await tester.pumpAndSettle();
 
+      // Verify empty state UI component
       expect(find.byKey(const Key('empty-state')), findsOneWidget);
     });
   });

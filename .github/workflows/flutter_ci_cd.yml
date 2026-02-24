@@ -86,8 +86,15 @@ jobs:
       - uses: actions/checkout@v4
       - uses: subosito/flutter-action@v2
 
-      - name: Run Integration Tests
-        run: flutter test integration_test/app_test.dart
+      # STRATEGY A: Running for Web (Headless Chrome)
+      - name: Run Integration Tests (Chrome)
+        run: flutter test integration_test/app_test.dart  -d chrome --web-renderer canvaskit
+
+        #STRATEGY B: Running for macOS Desktop
+        # Note: Desktop tests on CI often require the app to be built first
+      - name: Run Integration Tests (macOS Desktop)
+        run: |
+          flutter test integration_test/app_test.dart -d macos
 
 
 

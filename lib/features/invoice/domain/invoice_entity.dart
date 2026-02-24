@@ -5,6 +5,7 @@ class Invoice {
   final String clientName;
   final DateTime date;
   final List<InvoiceItem> items;
+
   Invoice({
     required this.id,
     required this.clientName,

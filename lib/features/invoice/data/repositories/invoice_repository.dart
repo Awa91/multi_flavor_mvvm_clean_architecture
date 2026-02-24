@@ -15,11 +15,7 @@ class InvoiceRepository {
             quantity: 10,
             unitPrice: 150,
           ),
-          InvoiceItem(
-            description: "Logo Design",
-            quantity: 1,
-            unitPrice: 2000,
-          ),
+          InvoiceItem(description: "Logo Design", quantity: 1, unitPrice: 2000),
         ],
       ),
       Invoice(

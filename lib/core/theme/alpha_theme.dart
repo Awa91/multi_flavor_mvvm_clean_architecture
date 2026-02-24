@@ -9,9 +9,6 @@ class AlphaTheme {
           secondary: Colors.deepOrangeAccent,
           brightness: Brightness.light,
         ),
-        appBarTheme: const AppBarTheme(
-          centerTitle: true,
-          elevation: 0,
-        ),
+        appBarTheme: const AppBarTheme(centerTitle: true, elevation: 0),
       );
 }

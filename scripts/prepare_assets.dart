@@ -30,8 +30,10 @@ void main(List<String> arguments) async {
   if (await sourceDir.exists()) {
     await for (final entity in sourceDir.list(recursive: true)) {
       if (entity is File) {
-        final String relativePath =
-            entity.path.replaceFirst(sourceDir.path, '');
+        final String relativePath = entity.path.replaceFirst(
+          sourceDir.path,
+          '',
+        );
         final String newPath = '${targetDir.path}$relativePath';
 
         final File newFile = File(newPath);

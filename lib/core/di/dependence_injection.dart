@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+
 import '../../features/font/connective_repository.dart';
 import '../../features/font/font_view_model.dart';
 import '../../features/invoice/data/repositories/invoice_repository.dart';
@@ -24,7 +25,5 @@ void setupLocator({InvoiceRepository? mockRepo}) {
     () => FontViewModel(locator<ConnectivityRepository>()),
   );
 
-  locator.registerFactory(
-    () => InvoiceViewModel(locator<InvoiceRepository>()),
-  );
+  locator.registerFactory(() => InvoiceViewModel(locator<InvoiceRepository>()));
 }

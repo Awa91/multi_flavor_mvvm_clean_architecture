@@ -9,9 +9,6 @@ class BetaTheme {
           secondary: Colors.tealAccent,
           brightness: Brightness.dark,
         ),
-        appBarTheme: const AppBarTheme(
-          centerTitle: false,
-          elevation: 4,
-        ),
+        appBarTheme: const AppBarTheme(centerTitle: false, elevation: 4),
       );
 }

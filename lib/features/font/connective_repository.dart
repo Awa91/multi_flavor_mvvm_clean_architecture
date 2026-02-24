@@ -6,8 +6,8 @@ class ConnectivityRepository {
   final Connectivity _connectivity = Connectivity();
 
   Stream<bool> get onWifiStream => _connectivity.onConnectivityChanged.map(
-        (results) => results.contains(ConnectivityResult.wifi),
-      );
+    (results) => results.contains(ConnectivityResult.wifi),
+  );
 
   Future<bool> isCurrentlyOnWifi() async {
     final results = await _connectivity.checkConnectivity();

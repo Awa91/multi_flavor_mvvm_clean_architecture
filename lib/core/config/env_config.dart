@@ -2,10 +2,7 @@
 /// Constants are used to allow the compiler to perform tree-shaking
 /// and constant folding for better security and performance.
 class EnvConfig {
-  static const String env = String.fromEnvironment(
-    'ENV',
-    defaultValue: 'dev',
-  );
+  static const String env = String.fromEnvironment('ENV', defaultValue: 'dev');
 
   static const String brand = String.fromEnvironment(
     'BRAND',

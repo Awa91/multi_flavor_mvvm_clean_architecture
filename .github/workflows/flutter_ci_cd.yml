@@ -32,11 +32,11 @@ jobs:
 
       # 1. Run Unit Tests (Logic, ViewModels, Entities)
       - name: Run Unit Tests
-        run: flutter test test/unit --coverage
+        run: flutter test test/unit_test.dart --coverage
 
       # 2. Run Widget Tests (UI, Navigation, Branding)
       - name: Run Widget Tests
-        run: flutter test test/widget --coverage
+        run: flutter test test/widget_test.dart --coverage
 
 #      # 3. Upload Coverage Report (Optional but recommended)
 #      - name: Upload Coverage to Codecov

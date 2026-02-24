@@ -50,7 +50,7 @@ void main() {
       WidgetTester tester,
     ) async {
       final locator = GetIt.instance;
-      locator.reset();
+      await locator.reset();
 
       final mockEmptyRepo = MockInvoiceRepository();
 

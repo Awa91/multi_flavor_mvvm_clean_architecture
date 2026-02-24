@@ -4,18 +4,18 @@ import 'dart:io';
 /// Run it using: dart scripts/prepare_assets.dart alpha
 void main(List<String> arguments) async {
   if (arguments.isEmpty) {
-    print('❌ Error: Please provide a brand name (alpha or beta).');
-    print('Usage: dart scripts/prepare_assets.dart <brand>');
+    //print('❌ Error: Please provide a brand name (alpha or beta).');
+    //print('Usage: dart scripts/prepare_assets.dart <brand>');
     exit(1);
   }
 
   final String brand = arguments[0].toLowerCase();
   if (brand != 'alpha' && brand != 'beta') {
-    print('❌ Error: "$brand" is not a recognized brand.');
+    //print('❌ Error: "$brand" is not a recognized brand.');
     exit(1);
   }
 
-  print('🚀 Preparing assets for brand: $brand');
+  //print('🚀 Preparing assets for brand: $brand');
 
   final Directory targetDir = Directory('assets/current_brand');
   final Directory sourceDir = Directory('assets/branding/$brand');
@@ -44,9 +44,9 @@ void main(List<String> arguments) async {
         await entity.copy(newPath);
       }
     }
-    print('✅ Assets for "$brand" synced to ${targetDir.path}');
+    //print('✅ Assets for "$brand" synced to ${targetDir.path}');
   } else {
-    print('❌ Error: Source directory ${sourceDir.path} not found!');
+    //print('❌ Error: Source directory ${sourceDir.path} not found!');
     exit(1);
   }
 }

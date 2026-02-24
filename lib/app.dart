@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
 import 'core/config/brand_config.dart';
 import 'core/config/env_config.dart';
 import 'core/di/dependence_injection.dart';
@@ -57,9 +58,9 @@ class HomeScreen extends StatelessWidget {
               style: Theme.of(context).textTheme.headlineSmall,
             ),
             const Divider(indent: 50, endIndent: 50),
-            _DetailRow(label: "Environment", value: EnvConfig.env),
-            _DetailRow(label: "Brand", value: EnvConfig.brand),
-            _DetailRow(label: "API Key", value: EnvConfig.apiKey),
+            const _DetailRow(label: "Environment", value: EnvConfig.env),
+            const _DetailRow(label: "Brand", value: EnvConfig.brand),
+            const _DetailRow(label: "API Key", value: EnvConfig.apiKey),
           ],
         ),
       ),

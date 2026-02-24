@@ -17,7 +17,7 @@ analyzer:
     # Treat formatting-related lints as warnings
     require_trailing_commas: warning
     lines_longer_than_80_chars: warning
-    missing_whitespace_between_members: warning
+
 
 linter:
   # The lint rules applied to this project can be customized in the

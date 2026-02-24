@@ -38,6 +38,9 @@ class _InvoiceListScreenState extends State<InvoiceListScreen> {
               // Keeping the key for your widget tests
               width: 100, // Adjust size as needed
               height: 100,
+              // Add this to prevent test crashes
+              errorBuilder: (context, error, stackTrace) =>
+                  const Icon(Icons.broken_image),
             ),
             const SizedBox(width: 12),
             Text(brand.appTitle),

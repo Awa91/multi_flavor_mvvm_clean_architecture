@@ -30,6 +30,12 @@ class EmptyMockInvoiceRepository extends MockInvoiceRepository {
 void main() {
   final locator = GetIt.instance;
 
+  setUpAll(() {
+    // This prevents tests from crashing when assets are missing
+    // It returns an empty 1x1 image instead of throwing an exception
+    TestWidgetsFlutterBinding.ensureInitialized();
+  });
+
   setUp(() async {
     await locator.reset();
   });

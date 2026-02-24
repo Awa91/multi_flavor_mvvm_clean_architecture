@@ -61,22 +61,14 @@ jobs:
       - name: Install Dependencies
         run: flutter pub get
 
-      # Build Alpha Brand (Dev Environment)
+      # Build Alpha Brand (Dev Environment) 
       - name: Build Alpha Dev APK
-        run:  flutter build apk --debug \
-              --flavor alphaDev \
-              --dart-define=ENV=dev \
-             --dart-define=BRAND=alpha \
-              --dart-define=API_KEY=https://alpha-dev-api.example.com
+        run:  flutter build apk --debug  --flavor alphaDev  --dart-define=ENV=dev  --dart-define=BRAND=alpha   --dart-define=API_KEY=https://alpha-dev-api.example.com
 
 
       # Build Beta Brand (Prod Environment)
       - name: Build Beta Prod APK
-        run:  flutter build apk --release  \
-              --flavor betaProd \
-              --dart-define=ENV=prod \
-              --dart-define=BRAND=beta \
-              --dart-define=API_KEY=https://beta-prod-api.example.com
+        run:  flutter build apk --release   --flavor betaProd   --dart-define=ENV=prod  --dart-define=BRAND=beta   --dart-define=API_KEY=https://beta-prod-api.example.com
 
 
       - name: Upload Artifacts
@@ -104,9 +96,11 @@ jobs:
       - name: Run Android Integration Test
         uses: reactivecircus/android-emulator-runner@v2
         with:
-           api-level: 36
+           api-level: 34 # Use 34 for high compatibility, or 35 for the latest stable
            arch: x86_64
            profile: Pixel_9
+           disable-animations: true
+          # Ensure you use 'emulators-finished' or clear flags if needed
            # The script below runs once the emulator is fully booted
            script: flutter test integration_test/app_test.dart
 

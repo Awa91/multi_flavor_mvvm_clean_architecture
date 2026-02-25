@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get_it/get_it.dart';
+import 'package:integration_test/integration_test.dart';
 import 'package:multi_flavor_mvvm_clean_architecture/core/di/dependence_injection.dart';
 import 'package:multi_flavor_mvvm_clean_architecture/features/invoice/data/repositories/invoice_repository.dart';
 import 'package:multi_flavor_mvvm_clean_architecture/features/invoice/domain/invoice_entity.dart';
@@ -28,6 +29,9 @@ class EmptyMockInvoiceRepository extends MockInvoiceRepository {
 }
 
 void main() {
+  // 1. Mandatory for Integration Tests
+  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
+
   final locator = GetIt.instance;
 
   setUpAll(() {

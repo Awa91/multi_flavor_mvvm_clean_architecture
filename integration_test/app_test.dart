@@ -17,7 +17,8 @@ void main() {
       // 1. Reset and Setup Mock Injection before app starts
       await locator.reset();
 
-      // Manually register the mock repo so app.main() uses this instead of the real one
+      // Manually register the mock repo so app.main()
+      // uses this instead of the real one
       final mockInvoice = Invoice(
         id: "INV-001",
         clientName: "Design Studio X",

@@ -98,7 +98,7 @@ jobs:
         with:
            api-level: 34 # Use 34 for high compatibility, or 35 for the latest stable
            arch: x86_64
-           profile: Pixel_9
+           profile: pixel # Change 'Pixel_9' to 'pixel'
            disable-animations: true
           # Ensure you use 'emulators-finished' or clear flags if needed
            # The script below runs once the emulator is fully booted

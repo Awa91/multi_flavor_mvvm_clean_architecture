@@ -1,0 +1,12 @@
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/branding/beta/logo.png"
+  # This target ensures the icons go to the Beta flavor folder
+  android_icon_path: "android/app/src/beta/res"
+  adaptive_icon_background: "#1A1A1A"
+  adaptive_icon_foreground: "assets/branding/beta/icon_foreground.png"
+  web:
+    generate: true
+    image_path: "assets/branding/beta/logo.png"

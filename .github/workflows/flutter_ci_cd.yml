@@ -1,0 +1,132 @@
+
+name: Flutter Multi-Brand CI/CD
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    name: Quality Assurance (Tests & Analysis)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.x'
+          channel: 'stable'
+          cache: true
+
+      - name: Install Dependencies
+        run: flutter pub get
+
+      - name: Verify Formatting
+        run:  dart format --set-exit-if-changed .
+
+      - name: Analyze Code
+        run: flutter analyze
+
+      # 1. Run Unit Tests (Logic, ViewModels, Entities)
+      - name: Run Unit Tests
+        run: flutter test test/unit_test.dart --coverage
+
+      # 2. Run Widget Tests (UI, Navigation, Branding)
+      - name: Run Widget Tests
+        run: flutter test test/widget_test.dart --coverage
+
+#      # 3. Upload Coverage Report (Optional but recommended)
+#      - name: Upload Coverage to Codecov
+#        uses: codecov/codecov-action@v3
+#        with:
+#          file: coverage/lcov.info
+
+
+  build_android:
+    name: Build Android (Multi-Brand)
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.x'
+          cache: true
+
+      - name: Install Dependencies
+        run: flutter pub get
+
+      # Build Alpha Brand (Dev Environment) 
+      - name: Build Alpha Dev APK
+        run:  flutter build apk --debug  --flavor alphaDev  --dart-define=ENV=dev  --dart-define=BRAND=alpha   --dart-define=API_KEY=https://alpha-dev-api.example.com
+
+
+      # Build Beta Brand (Prod Environment)
+      - name: Build Beta Prod APK
+        run:  flutter build apk --release   --flavor betaProd   --dart-define=ENV=prod  --dart-define=BRAND=beta   --dart-define=API_KEY=https://beta-prod-api.example.com
+
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: brand-apks
+          path: build/app/outputs/flutter-apk/*.apk
+          # Optional: How long to keep the file (default is 90 days)
+          retention-days: 7
+
+  # Optional: Integration Test Job
+  # Note: Requires a running emulator or physical device.
+  # Usually handled via Firebase Test Lab or a macOS runner for iOS.
+  integration_test:
+    name: Integration Testing
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Required for hardware acceleration on Linux runners
+      - name: Enable KVM
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          cache: true
+
+      - name: Install Dependencies
+        run: flutter pub get
+
+      - name: Run Android Integration Test
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 34
+          # FIX: Match the runner architecture (x86_64) to use KVM acceleration
+          arch: x86_64
+          target: google_apis
+          profile: pixel
+          disable-animations: true
+          # Increase timeout just in case, though x86_64 is much faster
+          emulator-boot-timeout: 600
+          # Optimized headless options
+          emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim
+          # FIX: Explicitly target the integration test and define the flavor
+          script: |
+            flutter test integration_test/app_test.dart    --flavor alphaDev   --dart-define=ENV=dev  --dart-define=BRAND=alpha
+#            flutter test integration_test/app_test.dart \
+#              --verbose \
+#              --flavor alphaDev \
+#              --dart-define=ENV=dev \
+#              --dart-define=BRAND=alpha \
+#              --dart-define=API_KEY=https://alpha-dev-api.example.com
+
+
+

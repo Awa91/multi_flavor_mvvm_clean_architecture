@@ -99,7 +99,8 @@ jobs:
         uses: reactivecircus/android-emulator-runner@v2
         with:
            api-level: 34 # Use 34 for high compatibility, or 35 for the latest stable
-           arch: x86_64
+             # CHANGE THIS FROM x86_64 TO arm64-v8a
+           arch: arm64-v8a
            profile: pixel # Change 'Pixel_9' to 'pixel'
            # Increase timeout to 1200 seconds (20 mins)
            emulator-boot-timeout: 1200

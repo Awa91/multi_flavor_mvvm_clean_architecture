@@ -119,8 +119,11 @@ jobs:
           # Optimized headless options
           emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim
           script: |
-            flutter test integration_test/app_test.dart --flavor alphaDev
-
+            flutter test integration_test/app_test.dart \
+              --flavor alphaDev \
+              --dart-define=ENV=dev \
+              --dart-define=BRAND=alpha \
+              --dart-define=API_KEY=https://alpha-dev-api.example.com
 
 
 

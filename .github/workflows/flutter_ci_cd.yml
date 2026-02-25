@@ -85,18 +85,22 @@ jobs:
   integration_test:
     name: Integration Testing
     needs: test
-    runs-on: ubuntu-latest  # <-- Change this to Linux
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      # Required for hardware acceleration on Linux runners
       - name: Enable KVM
         run: |
           echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
           sudo udevadm control --reload-rules
           sudo udevadm trigger --name-match=kvm
 
-      - uses: subosito/flutter-action@v2
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
+          cache: true
 
       - name: Install Dependencies
         run: flutter pub get
@@ -104,20 +108,17 @@ jobs:
       - name: Run Android Integration Test
         uses: reactivecircus/android-emulator-runner@v2
         with:
-           api-level: 34 # Use 34 for high compatibility, or 35 for the latest stable
-             # CHANGE THIS FROM x86_64 TO arm64-v8a
-           arch: arm64-v8a   # <-- Linux uses x86_64 for KVM
-           target: google_apis   # <-- Better for modern Flutter apps
-           profile: pixel # Change 'Pixel_9' to 'pixel'
-           # Increase timeout to 1200 seconds (20 mins)
-           # emulator-boot-timeout: 1200
-           disable-animations: true
-          # Ensure you use 'emulators-finished' or clear flags if needed
-           # The script below runs once the emulator is fully booted
-
-           # Force swiftshader for software rendering in headless CI
-           emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim
-           script: flutter test integration_test/app_test.dart
+          api-level: 34
+          # FIX: Match the runner architecture (x86_64) to use KVM acceleration
+          arch: x86_64
+          target: google_apis
+          profile: pixel
+          disable-animations: true
+          # Increase timeout just in case, though x86_64 is much faster
+          emulator-boot-timeout: 600
+          # Optimized headless options
+          emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim
+          script: flutter test integration_test/app_test.dart
 
 
 

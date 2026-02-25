@@ -85,9 +85,15 @@ jobs:
   integration_test:
     name: Integration Testing
     needs: test
-    runs-on: macos-latest
+    runs-on: ubuntu-latest  # <-- Change this to Linux
     steps:
       - uses: actions/checkout@v4
+      - name: Enable KVM
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+
       - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
@@ -100,10 +106,11 @@ jobs:
         with:
            api-level: 34 # Use 34 for high compatibility, or 35 for the latest stable
              # CHANGE THIS FROM x86_64 TO arm64-v8a
-           arch: arm64-v8a
+           arch: arm64-v8a   # <-- Linux uses x86_64 for KVM
+           target: google_apis   # <-- Better for modern Flutter apps
            profile: pixel # Change 'Pixel_9' to 'pixel'
            # Increase timeout to 1200 seconds (20 mins)
-           emulator-boot-timeout: 1200
+           # emulator-boot-timeout: 1200
            disable-animations: true
           # Ensure you use 'emulators-finished' or clear flags if needed
            # The script below runs once the emulator is fully booted

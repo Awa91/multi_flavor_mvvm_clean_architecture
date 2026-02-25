@@ -120,10 +120,7 @@ jobs:
           emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim
           # FIX: Explicitly target the integration test and define the flavor
           script: |
-            flutter test integration_test/app_test.dart \
-                  --flavor alphaDev \
-                  --dart-define=ENV=dev \
-                  --dart-define=BRAND=alpha
+            flutter test integration_test/app_test.dart    --flavor alphaDev   --dart-define=ENV=dev  --dart-define=BRAND=alpha
 #            flutter test integration_test/app_test.dart \
 #              --verbose \
 #              --flavor alphaDev \

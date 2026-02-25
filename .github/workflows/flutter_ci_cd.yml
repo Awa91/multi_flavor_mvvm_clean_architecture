@@ -76,6 +76,8 @@ jobs:
         with:
           name: brand-apks
           path: build/app/outputs/flutter-apk/*.apk
+          # Optional: How long to keep the file (default is 90 days)
+          retention-days: 7
 
   # Optional: Integration Test Job
   # Note: Requires a running emulator or physical device.
@@ -99,9 +101,13 @@ jobs:
            api-level: 34 # Use 34 for high compatibility, or 35 for the latest stable
            arch: x86_64
            profile: pixel # Change 'Pixel_9' to 'pixel'
+           # Increase timeout to 1200 seconds (20 mins)
+           emulator-boot-timeout: 1200
            disable-animations: true
           # Ensure you use 'emulators-finished' or clear flags if needed
            # The script below runs once the emulator is fully booted
+           # Force swiftshader for software rendering in headless CI
+           emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim
            script: flutter test integration_test/app_test.dart
 
 

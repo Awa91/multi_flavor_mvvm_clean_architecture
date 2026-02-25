@@ -6,18 +6,24 @@ import 'package:multi_flavor_mvvm_clean_architecture/features/invoice/domain/inv
 import 'package:multi_flavor_mvvm_clean_architecture/features/invoice/presentation/view_models/invoice_view_model.dart';
 
 class MockInvoiceRepository extends Mock implements InvoiceRepository {
+  final List<Invoice>? stubbedInvoices;
+  // Define the missing constructor
+  MockInvoiceRepository({this.stubbedInvoices});
+
   @override
   Future<List<Invoice>> fetchInvoices() async {
-    return [
-      Invoice(
-        id: "TEST-001",
-        clientName: "Test Client",
-        date: DateTime.now(),
-        items: [
-          InvoiceItem(description: "Item 1", quantity: 1, unitPrice: 100),
-        ],
-      ),
-    ];
+    // Return the stubbed list if provided, otherwise return a default list
+    return stubbedInvoices ??
+        [
+          Invoice(
+            id: "TEST-001",
+            clientName: "Test Client",
+            date: DateTime.now(),
+            items: [
+              InvoiceItem(description: "Item 1", quantity: 1, unitPrice: 100),
+            ],
+          ),
+        ];
   }
 }
 
